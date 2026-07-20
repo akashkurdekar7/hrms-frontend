@@ -18,13 +18,14 @@ import {
   VisibilityOff,
   Email,
   Lock,
+  Person,
 } from "@mui/icons-material";
-import { useAuth } from "../../context/AuthContext";
+import { authApi, type RegisterPayload } from "../../services/authApi";
+import toast from "react-hot-toast";
 
-const LoginPage = () => {
-  const { login } = useAuth();
+const RegisterPage = () => {
   const navigate = useNavigate();
-
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -36,14 +37,17 @@ const LoginPage = () => {
     setError("");
     setLoading(true);
 
+    const payload: RegisterPayload = { name, email, password };
+
     try {
-      await login({ email, password });
-      navigate("/dashboard");
+      await authApi.register(payload);
+      toast.success("Registration successful. Please login.");
+      navigate("/login");
     } catch (err: unknown) {
       const msg =
-        (err as { response?: { data?: string } })?.response?.data ??
-        "Invalid credentials";
-      setError(typeof msg === "string" ? msg : "Login failed");
+        (err as { response?: { data?: { message?: string } } })?.response?.data
+          ?.message ?? "Registration failed";
+      setError(msg);
     } finally {
       setLoading(false);
     }
@@ -61,7 +65,6 @@ const LoginPage = () => {
         position: "relative",
         overflow: "hidden",
       }}>
-      {/* Decorative gradient orbs */}
       <Box
         sx={{
           position: "absolute",
@@ -99,7 +102,6 @@ const LoginPage = () => {
           backdropFilter: "blur(24px)",
         }}>
         <CardContent sx={{ p: 5 }}>
-          {/* Logo */}
           <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
             <Box
               sx={{
@@ -119,15 +121,11 @@ const LoginPage = () => {
             </Box>
           </Box>
 
-          <Typography
-            variant="h5"
-            sx={{ color: "#e2e8f0", mb: 0.5, fontWeight: 700, textAlign: "center" }}>
-            Welcome back
+          <Typography variant="h5" sx={{ color: "#e2e8f0", mb: 0.5, fontWeight: 700, textAlign: "center" }}>
+            Create your account
           </Typography>
-          <Typography
-            variant="body2"
-            sx={{ color: "#94a3b8", mb: 3, textAlign: "center" }}>
-            Sign in to your HRMS account
+          <Typography variant="body2" sx={{ color: "#94a3b8", mb: 3, textAlign: "center" }}>
+            Register to access the HRMS dashboard.
           </Typography>
 
           {error && (
@@ -137,6 +135,32 @@ const LoginPage = () => {
           )}
 
           <Box component="form" onSubmit={handleSubmit}>
+            <TextField
+              fullWidth
+              label="Full Name"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              sx={{
+                mb: 2.5,
+                "& .MuiOutlinedInput-root": {
+                  color: "#e2e8f0",
+                  "& fieldset": { borderColor: "rgba(148,163,184,0.3)" },
+                  "&:hover fieldset": { borderColor: "rgba(148,163,184,0.5)" },
+                },
+                "& .MuiInputLabel-root": { color: "#94a3b8" },
+              }}
+              slotProps={{
+                input: {
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Person sx={{ color: "#64748b", fontSize: 20 }} />
+                    </InputAdornment>
+                  ),
+                },
+              }}
+            />
+
             <TextField
               fullWidth
               label="Email"
@@ -220,15 +244,15 @@ const LoginPage = () => {
               {loading ? (
                 <CircularProgress size={24} sx={{ color: "#fff" }} />
               ) : (
-                "Sign In"
+                "Register"
               )}
             </Button>
           </Box>
 
           <Typography variant="body2" sx={{ color: "#94a3b8", mt: 3, textAlign: "center" }}>
-            Don&apos;t have an account?{' '}
-            <Link component={RouterLink} to="/register" sx={{ color: "#e2e8f0" }}>
-              Register here
+            Already have an account?{' '}
+            <Link component={RouterLink} to="/login" sx={{ color: "#e2e8f0" }}>
+              Login here
             </Link>
           </Typography>
         </CardContent>
@@ -237,4 +261,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

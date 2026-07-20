@@ -145,7 +145,7 @@ const DepartmentPage = () => {
           gap: 2,
         }}>
         <Box>
-          <Typography variant="h4" fontWeight={700}>
+          <Typography variant="h4" sx={{ fontWeight: 700 }}>
             Departments
           </Typography>
           <Typography variant="body2" color="text.secondary">
@@ -209,7 +209,7 @@ const DepartmentPage = () => {
                     </Box>
 
                     {/* Name */}
-                    <Typography variant="h6" fontWeight={600} mb={1}>
+                    <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
                       {dept.name}
                     </Typography>
 
@@ -287,7 +287,7 @@ const DepartmentPage = () => {
           }}>
           <Apartment sx={{ fontSize: 64, mb: 2, opacity: 0.3 }} />
           <Typography variant="h6">No departments yet</Typography>
-          <Typography variant="body2" mb={2}>
+          <Typography variant="body2" sx={{ mb: 2 }}>
             Click "Add Department" to create one
           </Typography>
         </Box>

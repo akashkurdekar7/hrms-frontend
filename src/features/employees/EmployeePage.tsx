@@ -231,7 +231,7 @@ const EmployeePage = () => {
           gap: 2,
         }}>
         <Box>
-          <Typography variant="h4" fontWeight={700}>
+          <Typography variant="h4" sx={{ fontWeight: 700 }}>
             Employees
           </Typography>
           <Typography variant="body2" color="text.secondary">

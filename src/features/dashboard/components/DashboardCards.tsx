@@ -81,7 +81,7 @@ const DashboardCards = () => {
                     {card.title}
                   </Typography>
 
-                  <Typography variant="h4" fontWeight={700} sx={{ mt: 0.5 }}>
+                  <Typography variant="h4" sx={{ mt: 0.5, fontWeight: 700 }}>
                     {card.value}
                   </Typography>
                 </>

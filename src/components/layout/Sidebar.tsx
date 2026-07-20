@@ -64,8 +64,8 @@ const Sidebar = () => {
           </Box>
           <Typography
             variant="h6"
-            fontWeight={700}
             sx={{
+              fontWeight: 700,
               background: "linear-gradient(135deg, #818cf8, #38bdf8)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
@@ -111,10 +111,12 @@ const Sidebar = () => {
               </ListItemIcon>
               <ListItemText
                 primary={item.label}
-                primaryTypographyProps={{
-                  fontSize: "0.9rem",
-                  fontWeight: isActive ? 600 : 400,
-                  color: isActive ? "#e2e8f0" : "#94a3b8",
+                sx={{
+                  ".MuiTypography-root": {
+                    fontSize: "0.9rem",
+                    fontWeight: isActive ? 600 : 400,
+                    color: isActive ? "#e2e8f0" : "#94a3b8",
+                  },
                 }}
               />
               {isActive && (
@@ -151,10 +153,12 @@ const Sidebar = () => {
           </ListItemIcon>
           <ListItemText
             primary="Logout"
-            primaryTypographyProps={{
-              fontSize: "0.9rem",
-              color: "#f87171",
-              fontWeight: 500,
+            sx={{
+              ".MuiTypography-root": {
+                fontSize: "0.9rem",
+                color: "#f87171",
+                fontWeight: 500,
+              },
             }}
           />
         </ListItemButton>

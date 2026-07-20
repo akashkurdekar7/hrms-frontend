@@ -4,10 +4,10 @@ import DashboardCards from "./components/DashboardCards";
 const DashboardPage = () => {
   return (
     <Box>
-      <Typography variant="h4" fontWeight={700} mb={1}>
+      <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>
         Dashboard
       </Typography>
-      <Typography variant="body2" color="text.secondary" mb={3}>
+      <Typography variant="body2" sx={{ color: "text.secondary", mb: 3 }}>
         Overview of your workforce metrics
       </Typography>
 
